@@ -148,6 +148,15 @@ img {
   -ms-box-shadow: 0 0 5px #ebebeb;
 }
 
+h1 img, h2 img {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+  border: none;
+}
+
 p img {
   display: inline;
   margin: 0;
