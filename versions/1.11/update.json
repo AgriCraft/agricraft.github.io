@@ -1,11 +1,11 @@
 {
   "homepage": "http://minecraft.curseforge.com/mc-mods/225635-agricraft/files",
   "promos": {
-    "1.11-latest"     : "2.0.0a6",
-    "1.11-recomended" : "2.0.0a6"
+    "1.11-latest"     : "2.0.0-0.5.0-a6",
+    "1.11-recomended" : "2.0.0-0.5.0-a6"
   },
   "1.11" : {
-    "2.0.0a6" : "\
+    "2.0.0-0.5.0-a6" : "\
 - ADDED: Seed item configurability, allows for meta-sensitive seeds.\
 - FIXED: Default melon texture is wheat.\
 - FIXED: Growth & Gain stats randomly switching places.\
@@ -15,7 +15,7 @@
 - FIXED: Seeds not dropping from crops.\
 - UNKNOWN: Rendering null pointer exception Heisenbug.\
     ",
-    "2.0.0a5" : "\
+    "2.0.0-0.4.0-a5" : "\
 - REMOVED: Custom Wood Fences.\
 - FIXED: Seed Duplication.\
 - FIXED: Nugget OreDict Registration.\
@@ -24,18 +24,18 @@
 - FIXED: Crops fail to grow.\
 - FIXED: Crops fail to update properly.\
     ",
-    "2.0.0a4" : "\
+    "2.0.0-0.3.0-a4" : "\
 - INFO: 2.0.0a5 alpha pre-release to select users.\
     ",
-    "2.0.0a3" : "\
+    "2.0.0-0.3.0-a3" : "\
 - FIXED: Custom Wood Recipes!
     ",
-    "2.0.0a2" : "\
+    "2.0.0-0.3.0-a2" : "\
 - FIXED: Server initialization crash!\
 - FIXED: Jar naming scheme.\
 - FIXED: Excessive Jar size.\
     ",
-    "2.0.0a1" : "\
+    "2.0.0-0.3.0-a1" : "\
 - ADDED: 1.10.2 Port\
 - ADDED: JSON Crops!
     "
