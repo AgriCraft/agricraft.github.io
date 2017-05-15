@@ -1,10 +1,26 @@
 {
   "homepage": "http://minecraft.curseforge.com/mc-mods/225635-agricraft/files",
   "promos": {
-    "1.8.9-latest"     : "2.0.0",
-    "1.8.9-recomended" : "2.0.0"
+    "1.10.2-latest": "2.0.0a16",
+    "1.10.2-recomended": "2.0.0a16"
   },
-  "1.8.9" : {
-    "2.0.0" : "Updated to Minecraft 1.8.9"
+  "1.10.2": {
+    "2.0.0a17": "- TWEAK: Unified irrigation component connection properties.\n- FIXED: Channel selection bounds.\n- FIXED: Disabling vanilla farming disabled all farming.\n- FIXED: Plants with no products would drop a null ItemStack.\n- FIXED: Crops dropping crop sticks when raked.\n- ADDED: Sneaking while placing crops places cross-crops instead.\n- FIXED: Weed overtake code calculated strength backwards. Thanks @CodeCubesAndCrashes!\n- ADDED: TheOneProbe integration.\n- FIXED: Non-standard harvestcraft plant ids. Notice this will cause plant loss, but will not occur again.\n- FIXED: Mysticalagriculture plants mystically spawning in crops.\n- FIXED: Rare seed analyzer crash.\n- TWEAK: Modified custom wood recipes, possibly fixing several crafting issues.\n- ADDED: Debug option to show OreDict information in item tooltips.\n- FIXED: Loading error that caused NPE to be thrown and crash the game.",
+    "2.0.0a16": "- ADDED: Additional vanilla mutation JSON files.\n- ADDED: JSON files for vanilla flowers.\n- ADDED: JSON files for Mystical Agriculture plants.\n- ADDED: Seed drop chance customization, allowing for specification of when the seed should be returned from the plant.\n- REMOVED: Plant growth tiers, which weren't used extensively and mainly just complicated the code.\n- FIXED: Seed analyzer issue where gui would attempt to render very large box, and freeze the game in the process.\n- ADDED: Disabled vanilla planting warning.\n- FIXED: Disable vanilla planting option in config not working properly.\n- ADDED: Re-implemented water pads, for plants that like water.\n- FIXED: Seed Analyzer item duplication exploit (Thanks @Moondream15!).\n- FIXED: BlockRanges could go out of bounds, a very bad thing for them to do.\n- ADDED: AgriConditions, replacing the old nearby and base blocks in the JSON files.\n- ADDED: Sprinkler wip tooltip warning.\n- ADDED: JSON filename warning, to hint at files that might be misnamed.\n- FIXED: Crash at startup caused by setting mutation chance to 1.0.\n- ADDED: Default Sugarcane mutation definition.\n- FIXED: HarvestCraft coffee plant thinking it was a Starbuck's.",
+    "2.0.0a15": "- ADDED: Updated French translation files.\n- ADDED: Config option to remove links from alpha warning messages.\n- ADDED: Upgraded JEI integration.\n- FIXED: Comical item sizes.",
+    "2.0.0a14": "- ADDED: Default Botania Files thanks to Alexandro Lara de Camargo!",
+    "2.0.0a13": "- FIXED: Raking dropping fake items.\n- FIXED: Raking lacking appropriate interface.\n- FIXED: Cross-crops could be applied infinitely.\n- ADDED: Trimmed-down translation files.\n- ADDED: Alpha warning.\n- ADDED: Temporary Village \"Fix\"",
+    "2.0.0a12": "- FIXED: Quad caching issue causing massive memory leak.\n- FIXED: Plants could be made to grow in cross-crops.\n- FIXED: Grass seed drops.\n- FIXED: Debug log spam showing up in non-debug log.\n- ADDED: More lambda usage.\n- FIXED: Possible areas of de-synchronization.",
+    "2.0.0a11": "- FIXED: GUI glitches when highlighting items.\n- FIXED: GUI's not being as optimal as possible.\n- FIXED: Empty NBTTagCompounds being added to items with no tags.\n- FIXED: Products not stacking.\n- ADDED: Missing default JSON files for vanilla plants.\n- FIXED: JSON synchronization system premature loading issue.\n- FIXED: JEI duplicate seed interpreter registration.\n- FIXED: Base blocks not supporting meta values (notice format is WIP).\n- FIXED: Messy code in important classes.\n- FIXED: Missing JavaDocs in certain classes.\n- ADDED: Control over growth stat bonus on per-plant level.",
+    "2.0.0a10": "- ADDED: Light level feature for magnifying glass.\n- FIXED: Crops not consuming additional item to form cross-crops.\n- ADDED: Null pointer check to try to root out the infernal issue #770.\n- FIXED: Journal displaying seed name instead of plant name.\n- FIXED: Default Potato plant unattainable.\n- ADDED: Default Nether Wart & Beet plant JSON files.\n- FIXED: Crash caused by spawning AgriCraft nuggets with invalid meta values.",
+    "2.0.0a9": "- FIXED: Multiplayer JSON transfer. Json files will now transfer correctly from the server to the client.",
+    "2.0.0a8": "- ADDED: Better mod JSON file loading, will not try to load files for missing mods.",
+    "2.0.0a7": "- FIXED: InfinityLib dependency version insensitivity. (#799)\n- FIXED: Tank rendering crash. (#809)\n- FIXED: Crop rendering crash. (#804)",
+    "2.0.0a6": "- ADDED: Seed item configurability, allows for meta-sensitive seeds.\n- FIXED: Plants spawning on infertile soil.\n- FIXED: Invalid texture message displaying {0} instead of invalid texture entry.\n- FIXED: Render type 'cross' rendering as 'hash' instead.\n- FIXED: Default melon texture is wheat.\n- FIXED: Growth & Gain stats randomly switching places.\n- FIXED: Crash caused by sprinklers and class casting.\n- FIXED: Channel valve ignoring redstone control.\n- FIXED: Villager bound null pointer exception.\n- FIXED: Seeds not dropping from crops.\n- UNKNOWN: Rendering null pointer exception Heisenbug.",
+    "2.0.0a5": "- REMOVED: Custom Wood Fences.\n- FIXED: Seed Duplication.\n- FIXED: Nugget OreDict Registration.\n- FIXED: Custom crops with base blocks not placing.\n- FIXED: Crash caused by breaking soil under crops.\n- FIXED: Crops fail to grow.\n- FIXED: Crops fail to update properly.",
+    "2.0.0a4": "- INFO: 2.0.0a5 alpha pre-release to select users.",
+    "2.0.0a3": "- FIXED: Custom Wood Recipes!",
+    "2.0.0a2": "- FIXED: Server initialization crash!\n- FIXED: Jar naming scheme.\n- FIXED: Excessive Jar size.",
+    "2.0.0a1": "- ADDED: 1.10.2 Port\n- ADDED: JSON Crops!"
   }
 }
