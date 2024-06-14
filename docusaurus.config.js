@@ -10,14 +10,14 @@ const config = {
   favicon: 'img/logo.png',
 
   // Set the production url of your site here
-  url: 'https://ketheroth.github.io',
+  url: 'https://agricraft.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/agricraft.github.io',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Ketheroth', // Usually your GitHub org/user name.
+  organizationName: 'AgriCraft', // Usually your GitHub org/user name.
   projectName: 'agricraft.github.io', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
