@@ -3,13 +3,13 @@
 
 ## How do I prevent a plant from spawning? How do I disable it?
 
-To properly remove plants or their mutations, use the `filter` option in `pack.mcmeta`. You can find more information [here](../customization/removing-data).
+To properly remove plants or their mutations, use the `filter` option in `pack.mcmeta`. You can find more information [here](../customization/removing-data.md).
 
 ## How do I disable weeds?
 
 To disable weeds altogether, set `disable_weeds` in the AgriCraft config to `true`. 
 
-To remove a specific weed type, follow the same method as for removing [plants](../customization/removing-data).
+To remove a specific weed type, follow the same method as for removing [plants](../customization/removing-data.md).
 
 ## Why won't some plant seeds stack with others?
 
@@ -22,15 +22,15 @@ Suspiciously Savvy Seed Sorting Sack can also help by holding multiple seeds wit
 
 ## How do I use fertilizers from other mods?
 
-Create the corresponding [fertilizer json](../customization/fertilizer).
+Create the corresponding [fertilizer json](../customization/fertilizer.md).
 
-If a mod is [supported](./index) by AgriCraft, the fertilizer should work out of the box. If it doesn't, tell us on GitHub or Discord so we can add it.
+If a mod is [supported](./index.md) by AgriCraft, the fertilizer should work out of the box. If it doesn't, tell us on GitHub or Discord so we can add it.
 
 ## How can I use the Seed Analyzer?
 
 Shift Right Click with a seed or a journal in your hand to insert it into the analyzer. Shift Right Click again to remove items from the analyzer.
 
-When the analyzer is present in the analyzer, analyzing a seed will create a corresponding page in the journal.
+When the seed is present in the analyzer, analyzing a seed will create a corresponding page in the journal.
 
 ## Why can't I put the seed into the Seed Analyzer?
 
