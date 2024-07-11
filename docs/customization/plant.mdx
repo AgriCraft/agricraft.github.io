@@ -1,6 +1,3 @@
-﻿
-
-
 # Plant
 
 This page will guide you through the process of creating a custom plant for AgriCraft.
@@ -38,7 +35,7 @@ First, let's create a simple plant. Every plant requires the following fields:
 - `cloneable`: determines if the plant can be cloned.
 - `spread_chance`: spread chance of the plant on clone.
 - `requirement`: an object containing plant's requirements:
-	- `soil_humidity`, `soil_acidity` and `soil_nutrients`: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation [is provided below](#Specifying-soil-humidity,-acidity-and-nutrients).
+	- `soil_humidity`, `soil_acidity` and `soil_nutrients`: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation [is provided below](#Specifying-soil-humidity-acidity-and-nutrients).
 	- `min_light`: minimum light required for the plant to grow.
 	- `max_light`: maximum light required for the plant to grow.
 	- `light_tolerance_factor`: light tolerance of the plant. For each level of plant strength, `min_light` decreases and `max_light` increases by the given value.
@@ -144,23 +141,20 @@ Here's an example of adding potato as a seed for the plant:
 ```
 
 ### Specifying soil humidity, acidity and nutrients
-
-See the [soil condition values](soil#soil-conditions) for the soil requirements of the plant.
-
-The type of a condition can be one of the following values :
-- `equal`: the condition of the soil must be equal to the plant condition.
-Example: if the humidity condition of the plant is wet, the soil humidity must be wet too (the plant won't grow if it isn't this exact condition)
-- `equal_or_lower`: the condition of the soil must be equal or lower than the plant condition.
-Example: if the humidity condition of the plant is wet, the soil humidity must be arid, dry, damp or wet.
-- `equal_or_hight`: the condition of the soil must be equal or higher than the plant condition.
-Example: if the humidity condition of the plant is wet, the soil humidity must be wet, watery or flooded.
+`soil_humidity`, `soil_acidity` and `soil_nutrients` requirements consist of the following fields:
+- `type`: can be one of the following:
+	- `equal`: the condition of the soil must be equal to the plant condition. If it is higher or lower, the plant will not grow.
+	- `equal_or_lower`: the condition of the soil must be equal or lower than the plant condition. If it is higher, the plant will not grow.
+	- `equal_or_hight`: the condition of the soil must be equal or higher than the plant condition. If it is lower, the plant will not grow.
+- `value`: the value of the requirement. See [soil condition values](soil.md#soil-conditions) for the possible soil requirements of the plant.
+- `tolerance_factor`: broadens the requirement based on plant's strength. 
 
 #### How the soil conditions are used
 
 The requirement of the plant is met if the soil value is in the range `plant_requirement ± (plant_tolerance * plant_strength)`.
 
 Example:  
-Assuming the plant has a strength of 10 and this condition in its json file:
+Assuming the plant has a strength of 10 and this is its humidity requirement:
 ```json
 {
   "soil_humidity": {
