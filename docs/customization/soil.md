@@ -1,36 +1,33 @@
 # Soil
 
-Soils are blocks where crops can grow on.
-AgriCraft ships default soils, but you can modify them or add new ones with a datapack.
+Soils are blocks crops can grow on. AgriCraft ships default soils, but these can be modified and new soils can be added with a datapack.
 
-To create your own soil, add a new json file in the directory `data/<datapack_id>/agricraft/soils/<soil_id>.json`
-where `datapack_id` is the id of your datapack and`soil_id` is the id of this soil (it can be whatever you want).
-In our case it will be `tuto` and `tomato_soil`.
+To create your own soil, add a new json file in the directory `data/<namespace>/agricraft/soils/<soil_id>.json` where `namespace` is the namespace and `soil_id` is the ID of this soil, which can be whatever you want.
 
-The structure of the json file is the following:
-```json5
+Every soil requires the following fields:
+- `mods`: mods needed for the soil to be loaded.
+- `variants`: array of blocks representing this soil. Every soil object consists of:
+	-  `block`: tag or a resource location of the block.
+	-  `states`: list of states the block must match. *[optional]*
+- `humidity`: humidity condition of the soil. Accepted values [can be found here](#Humidity).
+- `acidity`: acidity condition of the soil. Accepted values [can be found here](#Acidity).
+- `nutrients`: nutrient condition of the soil. Accepted values [can be found here](#Nutrients).
+- `growth_modifier`: value used to modify the growth of the plants on this soil. The default value is `1.0`. Higher values will increase the growth speed, while lower ones will decrease it.
+
+The example below shows soul soil as a soil:
+
+```json
 {
-  // mods needed for the soil to be loaded
   "mods": [],
-  // an array of blocks representing this soil
   "variants": [
     {
-      // tag or element id of blocks to use
-      "block": "minecraft:farmland",
-      // list of blockstates the block must match
-      "states": []
+      "block": "minecraft:soul_soil"
     }
   ],
-  // the humidity condition of the block (see below for more information)
-  "humidity": "wet",
-  // the acidity condition of the block
-  "acidity": "slightly_acidic",
-  // the nutrient condition of the block
-  "nutrients": "high",
-  // a value used to modify the growth of the plants on this soil.
-  // 1.0 is the default growth of the plant, a lower value will decrease the speed of growth,
-  // and a higher value will increase its speed.
-  "growth_modifier": 1.0,
+  "acidity": "neutral",
+  "humidity": "arid",
+  "nutrients": "very_high",
+  "growth_modifier": 1.0
 }
 ```
 
