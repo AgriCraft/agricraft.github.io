@@ -21,8 +21,6 @@ data
           └─tomato.json  # The name of the file must match the id of your plant ("tomato" here)
 ```
 
-[//]  # (todo: primer for agricraft 3.1.0 json to 3.2.0 json)
-
 ### Creating a simple plant
 
 First, let's create a simple plant. Every plant requires the following fields:
@@ -193,14 +191,14 @@ These requirements use the following fields:
 
 Here is an example of a requirement that stops the plant from growing in plains and desert biomes:
 ```json
-    "biomes": {
-      "values":  [
-		"minecraft:plains",
-		"minecraft:desert"
-	  ],
-      "blacklist":  true,
-      "ignore_from_strength":  11
-    }
+  "biomes": {
+    "values":  [
+      "minecraft:plains",
+      "minecraft:desert"
+    ],
+    "blacklist":  true,
+    "ignore_from_strength":  11
+  }
 ```
 
 #### Season
@@ -210,29 +208,26 @@ If you are using a mod that adds seasons, you can make your plant grow only duri
 Here is an example of a requirement that makes the plant grow only during spring and autumn:
 
 ```json
-    "seasons": [
-      "spring",
-      "autumn"
-    ]
+  "seasons": [
+    "spring",
+    "autumn"
+  ]
 ```
 
 #### Block conditions
-- `block`: tag or resource location of the required block.
+- `block`: tag or resource location of the required block below the soil.
 - `strength`: the requirement will be ignored if the strength of the plant is greater or equal to this value. Setting it to 11 means the condition will never be ignored.
-- `nbt`: NBT that must be included in the block (or block entity). *[optional]*
 - `states`: list of states that must be present in the block. *[optional]*
-- `amount`: the amount of blocks required in the specified range. Defaults to 1. *[optional]*
-- `min_x`, `min_y`, `min_z` and `max_x`, `max_y`, `max_z`: the bounding box, relative to the crop at 0, 0, 0, where the block(s) need to be placed. The bounding box is inclusive. Defaults to `(0, -2, 0)`, `(0, -2, 0)`, meaning the block needs to be placed under the soil. *[optional]*
 
 Here is an example of a requirement that makes the plant grow only when there is some kind of a diamond ore under the soil:
 
 ```json
-    "block_conditions":  [
-      {
-        "block": "#agricraft:ores/diamond",
-        "strength": 11
-      }
-    ]
+  "block_conditions":  [
+    {
+      "block": "#agricraft:ores/diamond",
+      "strength": 11
+    }
+  ]
 ```
 
 #### Fluid condition
@@ -242,10 +237,10 @@ Fluid condition can be added with a `fluid_condition` field. The fluid condition
 - `states`: list of states that must be present in the fluid. *[optional]*
 
 ```json
-    "fluid_condition": {
-      "fluid": "minecraft:empty",
-      "states": []
-    }
+  "fluid_condition": {
+    "fluid": "minecraft:empty",
+    "states": []
+  }
 ```
 
 ### Adding modifiers
@@ -256,10 +251,10 @@ To add a modifier, add a `modifiers` section to your plant file. It should conta
 
 Each modifier should have an `id`. Additionally, some modifiers require a `value` to further specify the action. Here you can see an example of summoning a zombie on plant harvest:
 ```json
-    {
-      "id": "agricraft:summon",
-      "value": "minecraft:zombie"
-    }
+  {
+    "id": "agricraft:summon",
+    "value": "minecraft:zombie"
+  }
 ```
 
 Since modifiers are stored in an array, you can have multiple modifiers at the same time:
