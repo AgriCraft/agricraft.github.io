@@ -1,13 +1,13 @@
 # Plant
 
-This page will guide you to create a custom plant for AgriCraft.
+This page will guide you through the process of creating a custom plant for AgriCraft.
 
-Before starting to write anything, we have to choose a resource location for the plant.
-We are creating the tomato plant, so let's use `tuto:tomato` as the plant's resource location.
+Before we start, we have to choose a resource location for the plant.
+We are creating a tomato plant, so let's use `tuto:tomato` as the plant's resource location.
 
-This guide is split in two part:
-- the datapack part, to define the behaviour of the plant
-- the resourcepack part, to define how the plant is rendered
+This guide is split in two parts:
+- **Datapack**: defines the behaviour of the plant
+- **Resourcepack**: defines how the plant is rendered
 
 ## Datapack
 
@@ -23,33 +23,31 @@ data
 
 [//]  # (todo: primer for agricraft 3.1.0 json to 3.2.0 json)
 
-The json file have a specific format, described as follows:
-```json5
+### Creating a simple plant
+
+First, let's create a simple plant. Every plant requires the following fields:
+- `mods`: list of mods required to load this plant. **Currently not used**
+- `seeds`: list of items that can be used as a seed for this plant. Note that AgriCraft will always generate it's own seed for the plant. More information about adding seeds [can be found below](#Adding-seeds).
+- `stages`: list of growth stages for this plant. Every stage should be a number corresponding to the height of the plant in pixels.
+- `harvest_stage`: growth stage that the plant will have after it gets harvested.
+- `growth_chance`: chance the plant has of growing on a random tick.
+- `growth_bonus`: chance the plant has of growing bonus on a random tick.
+- `cloneable`: determines if the plant can be cloned.
+- `spread_chance`: spread chance of the plant on clone.
+- `requirement`: an object containing plant's requirements:
+	- `soil_humidity`, `soil_acidity` and `soil_nutrients`: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation [is provided below](#Specifying-soil-humidity-acidity-and-nutrients).
+	- `min_light`: minimum light required for the plant to grow.
+	- `max_light`: maximum light required for the plant to grow.
+	- `light_tolerance_factor`: light tolerance of the plant. For each level of plant strength, `min_light` decreases and `max_light` increases by the given value.
+
+Other than the fields mentioned above, all fields are considered optional.
+
+Here is an example of a simple plant that grows on farmland and has the same growth stages as wheat:
+
+```json
 {
-  // mods needed for the plant to be loaded
   "mods": [],
-  // Items to use as seed for this plant.
-  // Note that AgriCraft will always generate a seed for this plant
-  // (regardless if there are elements in this seed list)
-  "seeds": [
-    {
-      // tag or element id of items to use
-      "item": "minecraft:potato",
-      // override default item behaviour to place an agricraft plant instead
-      "override_planting": true,
-      // If this nbt is included in the item's nbt, then the item is considered as a seed for this plant
-      // [optional] (default = "", no nbt) 
-      "nbt": "",
-      // chance for this plant's seed to drop when grass is broken
-      "grass_drop_chance": 0.0,
-      // chance for this plant's seed to drop when the crop is broken
-      "seed_drop_chance": 1.0,
-      // chance for a second seed to drop when the crop is broken
-      "seed_drop_bonus": 0.0
-    }
-  ],
-  // growth stages for the plant. each number correspond to the height of the plant at that stage.
-  // add/remove a number to add/remove a growth stage
+  "seeds": [],
   "stages": [
     2,
     4,
@@ -60,198 +58,103 @@ The json file have a specific format, described as follows:
     14,
     16
   ],
-  // After harvest, the growth stage is set to be this one.
   "harvest_stage": 4,
-  // The chance the plant has of growing on a random tick
   "growth_chance": 0.75,
-  // The chance the plant has of growing bonus on a random tick
   "growth_bonus": 0.025,
-  // Determine if the plant can be cloned
   "cloneable": true,
-  // The spread chance of the plant on clone
   "spread_chance": 0.1,
-  // The list of item produced on harvest. All products in the list is produced (according to the chance of course)
-  "products": [
-    {
-      // tag or element id
-      "item": "minecraft:wheat",
-      // minimum amount
-      "min": 1,
-      // maximum amount
-      "max": 3,
-      // chance for this product to be produced
-      "chance": 0.95,
-      // if the item is required to be present in Minecraft for the product to exist
-      "required": true,
-      // nbt to add to the itemstack
-      // [optional] (default = "", no nbt)
-      "nbt": "",
-    }
-  ],
-  // The list of item produced on clipping. objects are the same as harvest products
-  "clip_products": [
-  ],
-  // Growth requirement of the plant (the plant will grow only if every requirement are met)
   "requirement": {
-    // humidity of the soil.
-    // see Soil customization for more information on each soil property
-    "soil_humidity": {
-      // The required humidity condition of the plant
-      "condition": "wet",
-      // Determine when the condition is met
-      "type": "equal",
-      // The tolerance factor of the condition
-      "tolerance_factor": 0.15
-    },
-    // acidity of the soil
     "soil_acidity": {
-      "condition": "slightly_acidic",
       "type": "equal",
-      "tolerance_factor": 0.2
+      "tolerance_factor": 0.2,
+      "value": "slightly_acidic"
     },
-    // nutrients of the soil
+    "soil_humidity": {
+      "type": "equal",
+      "tolerance_factor": 0.15,
+      "value": "wet"
+    },
     "soil_nutrients": {
-      "condition": "high",
       "type": "equal_or_higher",
-      "tolerance_factor": 0.1
+      "tolerance_factor": 0.1,
+      "value": "high"
     },
-    // minimum light present on the plant
     "min_light": 10,
-    // maximum light present on the plant
     "max_light": 16,
-    // tolerance factor of light values outside the min-max boundaries
-    // the light requirement is met if the block light is in the range:
-    // [min_light - plant_strength * light_tolerance, max_light + plant_strength * light_tolerance]
-    "light_tolerance_factor": 0.5,
-    // The list of biomes the plant must be in to grow
-    // [optional] (default = empty blacklist)
-    "biomes": {
-      // list of biome resource locations (like "minecraft:plains")
-      "values": [],
-      // if the above list is used as a blacklist (plant won't grow if in the biomes)
-      // or as a whitelist (plant will grow only in the biomes)
-      "blacklist": true,
-      // biome requirement is ignore if the strength of the plant is greater or equal to this value
-      // [optional] (default = 11, effectively making biome requirement never ignored because the max strength of a plant is 10 by default)
-      "ignore_from_strength": 11
-    },
-    // Same as the biome requirement above, but for dimensions
-    // [optional] (default = empty blacklist)
-    "dimensions": {
-      "values": [],
-      "blacklist": true,
-      "ignore_from_strength": 11
-    },
-    // The list of seasons the plant can grow.
-    // No seasons logic are provided by AgriCraft, you'll add to bring your own seasons mod.
-    // [optional] (default = as below, the plant can grow in all seasons)
-    "seasons": [
-      "spring",
-      "summer",
-      "autumn",
-      "winter"
-    ],
-    // The list of blocks that must be present near the plant so it can grow
-    // [optional] (default = empty list)
-    "block_conditions": [
-      {
-        // tag or element id of the required block
-        "block": "#forge:ores/gold",
-        // nbt that must be included in the block (or block entity) nbt
-        // [optional] (default = "", no nbt) 
-        "nbt": "",
-        // list of states that must be present in the block
-        // [optional] (default = [], all states matches) 
-        "states": [],
-        // strength at which this block condition become ignored
-        "strength": 11,
-        // the amount required in the given range
-        "amount": 1,
-        // The bounding box, relative to the crop at 0, 0, 0 in which the block(s) are to be placed.
-        // In this case we specify the box {(0, -2, 0), (0, -2, 0)}, which is the single block directly
-        // below the soil block. Notice that the upper bound is inclusive, so that to specify a
-        // single block we use the same point twice, not the upper left and lower right points.
-        "min_x": 0,
-        "min_y": -2,
-        "min_z": 0,
-        "max_x": 0,
-        "max_y": -2,
-        "max_z": 0,
-      }
-    ],
-    // The required fluid the plant needs to be in to grow
-    // Warning, if the fluid condition is not met it is lethal for the crop
-    // [optional] (default = no fluid)  
-    "fluid_condition": {
-      // tag or element id of the fluid
-      "fluid": "minecraft:empty",
-      // list of states that must be present in the fluid
-      // [optional] (default = [], all states matches)
-      "states": [],
-    }
-  },
-  // An array of callbacks the crop will use.
-  // Below are all the default callbacks.
-  // [optional] (default = [], no callback)
-  "callbacks": [
-    // the crop emit light
-    "agricraft:brightness",
-    // the crop burn colliding entities
-    "agricraft:burn",
-    // the crop slow down colliding entities
-    "agricraft:bushy",
-    // the corp drop experience on harvest
-    "agricraft:experience",
-    // the crop apply the poison effect to colliding entities
-    "agricraft:poisoning",
-    // the crop emit redstone signal
-    "agricraft:redstone",
-    // the crop hurt colliding entities (like a cactus)
-    "agricraft:thorns",
-    // the crop apply the wither effect to colliding entities
-    "agricraft:withering"
-  ],
-  // An array describing the particles the plant can emit.
-  // [optional] (default=[])
-  "particle_effects": [
-    {
-      // The probability the particle will spawn [range 0.0-1.0].
-      "probability": 0.5,
-      // An array containing the indexes (0-indexed) of the stages the plant can produce particles.
-      "stages": [
-        7  // in this example, the effect is only present on the last stage
-      ],
-      // The id of the particle
-      "particle": "minecraft:smoke",
-      // How far from the center of the block the particle can spawn (X axis).
-      "delta_x": 0.3,
-      // How high from the center of the block the particle can spawn (Y axis).
-      "delta_y": 0.4,
-      // How far from the center of the block the particle can spawn (Z axis).
-      "delta_z": 0.3
-    }
-  ]
+    "light_tolerance_factor": 0.5
+  }
 }
 ```
 
-### Soil requirements
+### Adding plant products
+Products are stored in two different arrays: `products` and `clip_products`. Both arrays function similarly, with the key difference being that `clip_products` are only dropped when harvesting with a Clipper.
 
-See the [soil condition values](soil#soil-conditions) for the soil requirements of the plant.
+A product object requires the following fields:
+- `item`: tag or resource location of the item to be produced.
+- `min`: minimum amount that can be dropped.
+- `max`: maximum amount that can be dropped.
+- `chance`: chance for this product to be produced.
+- `required`: if set to `true`, the product will exist only if the item is present in the game.
+- `nbt`: the NBT that will be added to the item. *[optional]*
 
-The type of a condition can be one of the following values :
-- `equal`: the condition of the soil must be equal to the plant condition.
-Example: if the humidity condition of the plant is wet, the soil humidity must be wet too (the plant won't grow if it isn't this exact condition)
-- `equal_or_lower`: the condition of the soil must be equal or lower than the plant condition.
-Example: if the humidity condition of the plant is wet, the soil humidity must be arid, dry, damp or wet.
-- `equal_or_hight`: the condition of the soil must be equal or higher than the plant condition.
-Example: if the humidity condition of the plant is wet, the soil humidity must be wet, watery or flooded.
+If multiple drops are present in the array, all of the products will be dropped according to the individual `chance`.
+
+Here is an example of adding potato drops to the plant:
+```json
+  "products": [
+    {
+      "item": "minecraft:potato",
+      "min": 1,
+      "max": 4,
+      "chance": 0.95,
+      "required": true
+    },
+    {
+      "item": "minecraft:poisonous_potato",
+      "min": 1,
+      "max": 2,
+      "chance": 0.02,
+      "required": true
+    }
+  ]
+```
+
+### Adding seeds
+- `item`: tag or resource location of the item that will be used as a seed.
+- `override_planting`: if `true`, default item behaviour will be overridden to place an AgriCraft plant instead.
+- `grass_drop_chance`: chance for this seed to drop when grass is broken.
+- `seed_drop_chance`: chance for this seed to drop when the crop is broken.
+- `seed_drop_bonus`: chance for a second seed to drop when the crop is broken.
+- `nbt`: NBT needed for the item to be considered a seed. *[optional]*
+
+Here's an example of adding potato as a seed for the plant:
+```json
+  "seeds": [
+    {
+      "item": "minecraft:potato",
+      "override_planting": true,
+      "grass_drop_chance": 0.0,
+      "seed_drop_chance": 1.0,
+      "seed_drop_bonus": 0.0
+    }
+  ]
+```
+
+### Specifying soil humidity, acidity and nutrients
+`soil_humidity`, `soil_acidity` and `soil_nutrients` requirements consist of the following fields:
+- `type`: can be one of the following:
+	- `equal`: the condition of the soil must be equal to the plant condition. If it is higher or lower, the plant will not grow.
+	- `equal_or_lower`: the condition of the soil must be equal or lower than the plant condition. If it is higher, the plant will not grow.
+	- `equal_or_hight`: the condition of the soil must be equal or higher than the plant condition. If it is lower, the plant will not grow.
+- `value`: the value of the requirement. See [soil condition values](soil.md#soil-conditions) for the possible soil requirements of the plant.
+- `tolerance_factor`: broadens the requirement based on plant's strength. 
 
 #### How the soil conditions are used
 
 The requirement of the plant is met if the soil value is in the range `plant_requirement ± (plant_tolerance * plant_strength)`.
 
 Example:  
-Assuming the plant has a strength of 10 and this condition in its json file:
+Assuming the plant has a strength of 10 and this is its humidity requirement:
 ```json
 {
   "soil_humidity": {
@@ -275,6 +178,144 @@ For each soil condition, set the same condition value as the soil in the plan re
 #### How to allow other soils after a specific plant strength?
 
 You can use [this tool](./tolerance-calculator.mdx) to determine the tolerance factor for each soil condition.
+
+### Adding additional requirements
+
+All of the requirements mentioned below have to be added to the `requirement` object you should already have in the plant file.
+
+#### Biome and dimension
+`biomes` and `dimensions` fields allow you to specify in which biomes or dimensions your plant will or won't grow.
+
+These requirements use the following fields:
+- `values`: a list of biome or dimension resource locations.
+- `blacklist`: if `true`, the specified biomes or dimensions will be blacklisted (the plant won't grow in them).
+- `ignore_from_strength`: the requirement will be ignored if the strength of the plant is greater or equal to this value. Defaults to 11 (meaning the requirement will never be ignored). *[optional]*
+
+Here is an example of a requirement that stops the plant from growing in plains and desert biomes:
+```json
+    "biomes": {
+      "values":  [
+		"minecraft:plains",
+		"minecraft:desert"
+	  ],
+      "blacklist":  true,
+      "ignore_from_strength":  11
+    }
+```
+
+#### Season
+
+If you are using a mod that adds seasons, you can make your plant grow only during specific seasons. To do this, add a `seasons` field to the `requirement`. It should be a list of all the seasons during which the plant can grow. 
+
+Here is an example of a requirement that makes the plant grow only during spring and autumn:
+
+```json
+    "seasons": [
+      "spring",
+      "autumn"
+    ]
+```
+
+#### Block conditions
+- `block`: tag or resource location of the required block.
+- `strength`: the requirement will be ignored if the strength of the plant is greater or equal to this value. Setting it to 11 means the condition will never be ignored.
+- `nbt`: NBT that must be included in the block (or block entity). *[optional]*
+- `states`: list of states that must be present in the block. *[optional]*
+- `amount`: the amount of blocks required in the specified range. Defaults to 1. *[optional]*
+- `min_x`, `min_y`, `min_z` and `max_x`, `max_y`, `max_z`: the bounding box, relative to the crop at 0, 0, 0, where the block(s) need to be placed. The bounding box is inclusive. Defaults to `(0, -2, 0)`, `(0, -2, 0)`, meaning the block needs to be placed under the soil. *[optional]*
+
+Here is an example of a requirement that makes the plant grow only when there is some kind of a diamond ore under the soil:
+
+```json
+    "block_conditions":  [
+      {
+        "block": "#agricraft:ores/diamond",
+        "strength": 11
+      }
+    ]
+```
+
+#### Fluid condition
+
+Fluid condition can be added with a `fluid_condition` field. The fluid condition object requires the following fields:
+- `fluid`: tag or ID of the fluid.
+- `states`: list of states that must be present in the fluid. *[optional]*
+
+```json
+    "fluid_condition": {
+      "fluid": "minecraft:empty",
+      "states": []
+    }
+```
+
+### Adding modifiers
+
+Modifiers allow you to further customize your plants by adding special effects, such as actions during harvest or effects on collision.
+
+To add a modifier, add a `modifiers` section to your plant file. It should contain an array of all the modifiers you want to use. 
+
+Each modifier should have an `id`. Additionally, some modifiers require a `value` to further specify the action. Here you can see an example of summoning a zombie on plant harvest:
+```json
+    {
+      "id": "agricraft:summon",
+      "value": "minecraft:zombie"
+    }
+```
+
+Since modifiers are stored in an array, you can have multiple modifiers at the same time:
+```json
+  "modifiers": [
+	{
+	  "id": "agricraft:brightness"
+	},
+    {
+      "id": "agricraft:summon",
+      "value": "minecraft:zombie"
+    }
+  ]
+```
+
+#### Available modifiers
+- `agricraft:brightness`: crop will emit light.
+- `agricraft:burn`: crop will burn colliding entities.
+- `agricraft:bushy`: crop will slow down colliding entities.
+- `agricraft:experience`: crop will drop experience on harvest.
+- `agricraft:fungus`: crop will grow a fungus tree when bonemealed at max growth. 
+  - `value` specifies the resource location of the fungus that will be grown.
+- `agricraft:poisoning`: crop will apply the poison effect to colliding entities.
+- `agricraft:redstone`: crop will emit redstone signal.
+- `agricraft:summon`: crop will summon an entity on harvest.
+  - `value` specifies the resource location of the mob that will be summoned.
+- `agricraft:thorns`: crop will hurt colliding entities (like a cactus).
+- `agricraft:tree`: crop will grow a tree when bonemealed at max growth.
+  - `value` specifies the resource location of the sapling that will be grown.
+- `agricraft:withering`: crop will apply the wither effect to colliding entities.
+
+### Adding particle effects
+
+To make particles spawn around your plant, add a `particle_effects` section to its file. It should contain an array of all the particle effects that you want to add.
+
+Each particle effect requires the following fields:
+- `probability`: chance for the particle to spawn. *[range 0.0-1.0]*
+- `stages`: list of plant stages at which the particle can spawn.
+- `particle`: resource location of the particle that will spawn.
+- `delta_x`, `delta_y` and `delta_z`: these represent how far from the center of the block the particles will spawn in the given direction.
+
+Here is an example of adding smoke particles to a fully-grown plant:
+```json
+  "particle_effects": [
+    {
+      "probability": 0.4,
+      "stages": [
+        7
+      ],
+      "particle": "minecraft:smoke",
+      "delta_x": 0.3,
+      "delta_y": 0.4,
+      "delta_z": 0.3
+    }
+  ]
+```
 
 ## Resourcepack
 

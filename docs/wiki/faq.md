@@ -1,35 +1,42 @@
+﻿
 # Frequently Asked Questions
 
 ## How do I prevent a plant from spawning? How do I disable it?
 
-Like you would disable a recipe in minecraft, create a datapack that replace the corresponding JSON file by a file that contains just the following text: `{}`.
+To properly remove plants or their mutations, use the `filter` option in `pack.mcmeta`. You can find more information [here](../customization/removing-data.md).
 
 ## How do I disable weeds?
 
-Same as with any other plant.
+To disable weeds altogether, set `disable_weeds` in the AgriCraft config to `true`. 
 
-## Why won't some plant seeds don't stack with others?
+To remove a specific weed type, follow the same method as for removing [plants](../customization/removing-data.md).
 
-Probably because one of those stack doesn't have the same genes as the other. Each gene is saved in the itemstack.
-The tooltip should show some of it. However, some genes are hidden by default.
-You need to change the value `todo` to true in the config to be able to see these hidden genes.
+## Why won't some plant seeds stack with others?
+
+Every seed contains multiple genes. If these genes aren't identical, the seeds won't stack.  
+The tooltip should show some of them. However, some genes are hidden by default or through the config. 
+
+You can see the entire seed genotype by planting it and using the Magnifying Glass.
+
+Suspiciously Savvy Seed Sorting Sack can also help by holding multiple seeds with different genes in your inventory.
 
 ## How do I use fertilizers from other mods?
 
-Create the corresponding [fertilizer json](../customization/fertilizer).
-Some mods fertilizers should already be present, if not, tell us on GitHub or Discord, so we can add them.
+Create the corresponding [fertilizer json](../customization/fertilizer.md).
 
-## Why can't I put the seed into the Seed Analyzer?
-
-The seed is probably not supported by default. Check the default seed datapack for agricraft (you can have a web version
-on the [GitHub repository](https://github.com/AgriCraft/AgriCraft/todo)) for a folder for the mod and the plant it this folder.
-If there isn't, consider adding the plant yourself by following the [seed customization tutorial](../customization/plant.mdx),
-or ask us to add it on GitHub or Discord.
+If a mod is [supported](./index.md) by AgriCraft, the fertilizer should work out of the box. If it doesn't, tell us on GitHub or Discord so we can add it.
 
 ## How can I use the Seed Analyzer?
 
-Right-click to open the seed analyzer and Shift-right-click with a seed or a journal in your hand to insert it in the analyzer.
-If the journal is present in the analyzer, and you analyze a seed, the page for that seed will show up in the journal.
+Shift Right Click with a seed or a journal in your hand to insert it into the analyzer. Shift Right Click again to remove items from the analyzer.
+
+When the seed is present in the analyzer, analyzing a seed will create a corresponding page in the journal.
+
+## Why can't I put the seed into the Seed Analyzer?
+
+If you follow the instructions above and it still doesn't work, the seed might not be supported by AgriCraft. Check whether an AgriCraft version of the seed exists in JEI/EMI or in the Creative Inventory.
+
+If it doesn't, consider adding the plant yourself by following the [seed customization tutorial](../customization/plant.mdx), or ask us on GitHub or Discord to add it.
 
 [//]: # (## How can I use the Seed Bag?)
 [//]: # ()
@@ -37,12 +44,15 @@ If the journal is present in the analyzer, and you analyze a seed, the page for 
 [//]: # (or with an empty hand to retrieve one seed. You can shake the bag &#40;shift + right click&#41; to change the order of the seeds.)
 [//]: # (You can plant seeds directly from the bag with a right click from the main hand.)
 
-## How can I give myself a seed with specific genes values?
+## How can I give myself a seed with specific gene values?
 
-There is two ways to give you a seed with specific values:
-- Use the AgriCraft give command as follows:
-  - `/agricraft_seed <plant_id>`: give the seed for the given plant with default stats (1 to every stat)
-  - `/agricraft_seed <plant_id> all <value>`: give the seed for the given plant with each stat set to the given value (must be between 1 and 10)
-  - `/agricraft_seed <plant_id> distinct <format>`: give the seed for the given plant with each stat set to their own value. The format is the values with a comma between, ordered by the stats id alphabetical order.
-    Example: To have a plant with the following stats: fertility=1, gain=2, growth=3, mutativity=4, resistance=5, strength=6; the command is `/agricraft_seed <plant_id> distinct 1,2,3,4,5,6`.
-- Use the Minecraft give command and set the nbt of the AgriCraft seed according to your need.
+There are two ways to give yourself a seed with specific values:
+1. Use the AgriCraft give command:
+  - `/agricraft_seed <plant_id>`: gives the seed for the specified plant with default stats (1 for every stat).
+  - `/agricraft_seed <plant_id> all <value>`: gives the seed for the specified plant with each stat set to the specified value (must be between 1 and 10).
+  - `/agricraft_seed <plant_id> distinct <format>`: gives the seed for the specified plant with each stat set to its own value. The format is the values with a hyphen between, ordered by the stats' ID in alphabetical order.
+    Example: To have a plant with the following stats: fertility=1, gain=2, growth=3, mutativity=4, resistance=5, strength=6, use the command: `/agricraft_seed <plant_id> distinct 1-2-3-4-5-6`.
+ 2. Use the Minecraft give command and set the NBT of the AgriCraft seed according to your needs:
+  - `/give <player> agricraft:seed<nbt>` 
+	Example: To give yourself Wheat Seeds with default stats, use the following command:
+    `/give @p agricraft:seed{genes:{fertility:{dom:1,rec:1},gain:{dom:1,rec:1},growth:{dom:1,rec:1},mutativity:{dom:1,rec:1},resistance:{dom:1,rec:1},species:{dom:"minecraft:wheat",rec:"minecraft:wheat"},strength:{dom:1,rec:1}}}`

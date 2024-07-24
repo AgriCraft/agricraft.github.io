@@ -4,15 +4,23 @@ Weeds are configured almost like the plants.
 
 ## Datapack
 
-As with plants, the datapack part consists of one json defining the weed.
-The location of the file is `data/<namespace>/agricraft/weeds/<weed_id>.json`.
+As with plants, the datapack part consists of one JSON file defining the weed. The location of the file is `data/<namespace>/agricraft/weeds/<weed_id>.json`.
 
-The scheme of the file is as follows:
-```json5
+Weed should have the following fields:
+- `mods`: mods needed for the weed to be loaded.
+- `stages`: list of growth stages for this weed. Every stage should be a number corresponding to the height of the weed in pixels.
+- `spawn_chance`: chance the weed has of spawning on a random tick.
+- `growth_chance`: chance the weed has of growing on a random tick.
+- `aggressive`: if `true`, the weed will try to spread to adjacent crops when mature.
+- `lethal`: if `true`, the weed will try to kill the host plant when mature.
+- `rake_products`: list of possible raking products of the weed. Follows the same structure as [plant products](./plant.mdx#Adding-plant-products).
+- `requirement`: an object containing plant's requirements. Follows the same structure as plants, which is explained [here](./plant.mdx#Creating-a-simple-plant) and [here](./plant.mdx#Adding-additional-requirements).
+
+
+The example below shows a basic weed:
+```json
 {
-  // mods needed for the weed to be loaded
   "mods": [],
-  // An array containing the height of the weed for each growth stage.
   "stages": [
     2,
     4,
@@ -23,55 +31,44 @@ The scheme of the file is as follows:
     14,
     16
   ],
-  // The chance the weed has of spawning on a random tick [range: 0.0-1.0].
   "spawn_chance": 0.25,
-  // The chance the weed has of growing on a random tick [range: 0.0-1.0].
   "growth_chance": 0.9,
-  // Defines if a weed is aggressive, aggressive weeds will try to spread to adjacent crops when mature.
   "aggressive": true,
-  // Defines if a weed is lethal, lethal weeds will try to kill the host plant when mature.
   "lethal": true,
-  // A list containing the possible raking products of the weed. The rake products have the same scheme as the plant products.
-  "rake_products": [],
-  // Determines the growth requirements of the weed. It is the same format as the plant requirements.
   "requirement": {
-    "soil_humidity": {
-      "condition": "damp",
-      "type": "equal",
-      "tolerance_factor": 0.15
-    },
+    "light_tolerance_factor": 0.5,
+    "max_light": 16,
+    "min_light": 10,
     "soil_acidity": {
-      "condition": "neutral",
       "type": "equal",
-      "tolerance_factor": 0.2
+      "tolerance_factor": 0.2,
+      "value": "neutral"
+    },
+    "soil_humidity": {
+      "type": "equal",
+      "tolerance_factor": 0.15,
+      "value": "damp"
     },
     "soil_nutrients": {
-      "condition": "medium",
       "type": "equal_or_higher",
-      "tolerance_factor": 0.1
+      "tolerance_factor": 0.1,
+      "value": "medium"
     },
-    "min_light": 10,
-    "max_light": 16,
-    "light_tolerance_factor": 0.5,
     "seasons": [
       "spring",
       "summer",
       "autumn",
       "winter"
-    ],
-    "block_conditions": [],
-    "fluid": {
-      "fluid": "minecraft:empty",
-      "states": [],
-    }
+    ]
   }
 }
 ```
 
 ## Resourcepack
 
-The resourcepack part describe how the weed is rendered, and follows the same architecture as the plants resourcepack part.
-However, the models must be placed in the folder `weed` instead of `crop`.
+The resourcepack part describes how the weed is rendered. It follows the same architecture as the [plant resourcepack part](./plant.mdx#Resourcepack).
+
+The only difference is that the models must be placed in the `weed` folder instead of `crop`.
 
 ### Textures
 
@@ -79,4 +76,4 @@ Agricraft will load the textures from `textures/weed/`, so you can put your weed
 
 ### Translation
 
-The key use to translate the name of the weed is: `weed.agricraft.<namespace>.<weed_id>`.
+The key used to translate the name of the weed is `weed.agricraft.<namespace>.<weed_id>`.

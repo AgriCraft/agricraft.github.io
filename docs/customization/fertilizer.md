@@ -1,58 +1,54 @@
+﻿
 # Fertilizer
 
-Fertilizers are items used to force growth tick of the plant (i.e. making the plant grow faster).
-AgriCraft ships default fertilizers (mainly the bone meal), but you can modify them or add new ones with a datapack.
+Fertilizers are items used make the plant grow faster by forcing a growth tick of the plant. AgriCraft ships default fertilizers such as bone meal, but these can be modified and new fertilizers can be added.
 
-To create your own fertilizer, add a new json file in the directory `data/<datapack_id>/agricraft/fertilizers/<fertilizer_id>.json`
-where `datapack_id` is the id of your datapack and`fertilizer_id` is the id of this fertilizer (it can be whatever you want).
-In our case it will be `tuto` and `tomato_fertilizer`.
+To create a fertilizer, add a new JSON file in the directory `data/<namespace>/agricraft/fertilizers/<fertilizer_id>.json` where `namespace` is the namespace and `fertilizer_id` is the ID of this fertilizer, which can be whatever you want.
 
-```json5
+Every fertilizer requires the following fields:
+- `mods`: mods required for the plant to be loaded.
+- `variants`: array of item objects representing the fertilizer. Every item object consists of `item` field, which can be a tag or a resource location.
+- `trigger_mutation`: if `true`, the fertilizer can trigger crop mutation.
+- `trigger_weeds`: if `true`, the fertilizer can trigger weed growth in the crop.
+- `potency`: potency of the fertilizer, higher values mean faster growth.
+- `reduce_growth`: if `true`, the fertilizer can reduce the growth stage of negatively affected plants.
+- `kill_plant`: if `true`, the fertilizer can kill negatively affected plants.
+- `neutral_on`: list of plants unaffected by the fertilizer. Can be a tag or a resource location.
+- `negative_on`: list of plants negatively affected by the fertilizer. Can be a tag or a resource location.
+- `particles`: array of particles that are spawned in the world when the fertilizer is used on a plant. Every particle object consists of:
+	- `amount`: amount of particles.
+	- `particle`: resource location of the particle that will spawn.
+	- `delta_x`, `delta_y` and `delta_z`: these represent how far from the center of the block the particles will spawn in the given direction.
+	- `when`: list of outcomes that can spawn the particle. Can be `positive`, `neutral` and `negative`.
+
+Here is an example of a fertilizer that should be similar to bone meal:
+```json
 {
-  // mods needed for the fertilizer to be loaded
   "mods": [],
-  // an array of items representing this fertilizer
   "variants": [
     {
-      // tag or element id of items to use
       "item": "minecraft:bone_meal"
     }
   ],
-  // Determine if the fertilizer trigger mutation in the crop
   "trigger_mutation": true,
-  // Determine if the fertilizer trigger weed growth in the crop
   "trigger_weeds": true,
-  // Determine the potency of the fertilizerk, bigger values equals faster growth
   "potency": 1,
-  // Determine if the fertilizer can reduce the growth of negatively affected plants
   "reduce_growth": true,
-  // Determine if the fertilizer can kill negatively affected plants.
   "kill_plant": true,
-  // The list of unaffected plants by this fertilizer. Can be a tag or element id.
   "neutral_on": [
-    "minecraft:wheat",
+    "agricraft:nitor_wart",
+    "minecraft:wither_rose"
   ],
-  // The list of negatively affected plants by the fertilizer
-  "negative_on": [
-  ],
-  // An array of particles that are spawned in the world when the fertilizer is used on a plant.
+  "negative_on": [],
   "particles": [
     {
-      // The amount of particles
       "amount": 2,
-      // How far from the center of the block the particle can spawn (X axis)
       "delta_x": 0.6,
-      // How high from the center of the block the particle can spawn (Y axis)
       "delta_y": 0.4,
-      // How high from the center of the block the particle can spawn (Z axis)
       "delta_z": 0.6,
-      // The id of the particle
       "particle": "minecraft:happy_villager",
-      // Determine when the particle should spawn
       "when": [
-        "positive",
-        "neutral",
-        "negative"
+        "positive"
       ]
     },
     {
@@ -65,12 +61,25 @@ In our case it will be `tuto` and `tomato_fertilizer`.
         "negative"
       ]
     }
-  ],
+  ]
 }
 ```
 
 ## Plant tags
 
-Plant tags are like block tags or item tags, but for plants instead.
-They must be placed in the directory `data/<datapack_id>/tags/agricraft/plants/<tag_id>.json`.
+To simplify maintaining `neutral_on` and `negative_on` fields, you can make plant tags. Plant tags are similar to block or item tags, but for plants instead.
+
+They must be placed in the directory `data/<namespace>/tags/agricraft/plants/<tag_id>.json`.
+
+The example below shows a tag that contains all tulip plants:
+```json
+{
+  "values": [
+    "minecraft:white_tulip",
+    "minecraft:pink_tulip",
+    "minecraft:orange_tulip",
+    "minecraft:red_tulip"
+  ]
+}
+```
 
