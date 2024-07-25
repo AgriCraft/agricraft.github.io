@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.0">
 <title data-rh="true">Plant | AgriCraft</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://agricraft.github.io/docs/customization/plant"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Plant | AgriCraft"><meta data-rh="true" name="description" content="This page will guide you through the process of creating a custom plant for AgriCraft."><meta data-rh="true" property="og:description" content="This page will guide you through the process of creating a custom plant for AgriCraft."><link data-rh="true" rel="icon" href="/img/logo.png"><link data-rh="true" rel="canonical" href="https://agricraft.github.io/docs/customization/plant"><link data-rh="true" rel="alternate" href="https://agricraft.github.io/docs/customization/plant" hreflang="en"><link data-rh="true" rel="alternate" href="https://agricraft.github.io/docs/customization/plant" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.133da119.css">
-<script src="/assets/js/runtime~main.c9360996.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.88c5d4ff.js" defer="defer"></script>
 <script src="/assets/js/main.0a29267c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -25,7 +25,7 @@ Below is the location of the file.</p>
 <p>First, let&#x27;s create a simple plant. Every plant requires the following fields:</p>
 <ul>
 <li><code>mods</code>: list of mods required to load this plant. <strong>Currently not used</strong></li>
-<li><code>seeds</code>: list of items that can be used as a seed for this plant. Note that AgriCraft will always generate it&#x27;s own seed for the plant. More information about adding seeds <a href="#Adding-seeds">can be found below</a>.</li>
+<li><code>seeds</code>: list of items that can be used as a seed for this plant. Note that AgriCraft will always generate it&#x27;s own seed for the plant. More information about adding seeds <a href="#adding-seeds">can be found below</a>.</li>
 <li><code>stages</code>: list of growth stages for this plant. Every stage should be a number corresponding to the height of the plant in pixels.</li>
 <li><code>harvest_stage</code>: growth stage that the plant will have after it gets harvested.</li>
 <li><code>growth_chance</code>: chance the plant has of growing on a random tick.</li>
@@ -34,7 +34,7 @@ Below is the location of the file.</p>
 <li><code>spread_chance</code>: spread chance of the plant on clone.</li>
 <li><code>requirement</code>: an object containing plant&#x27;s requirements:<!-- -->
 <ul>
-<li><code>soil_humidity</code>, <code>soil_acidity</code> and <code>soil_nutrients</code>: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation <a href="#Specifying-soil-humidity-acidity-and-nutrients">is provided below</a>.</li>
+<li><code>soil_humidity</code>, <code>soil_acidity</code> and <code>soil_nutrients</code>: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation <a href="#specifying-soil-humidity-acidity-and-nutrients">is provided below</a>.</li>
 <li><code>min_light</code>: minimum light required for the plant to grow.</li>
 <li><code>max_light</code>: maximum light required for the plant to grow.</li>
 <li><code>light_tolerance_factor</code>: light tolerance of the plant. For each level of plant strength, <code>min_light</code> decreases and <code>max_light</code> increases by the given value.</li>
