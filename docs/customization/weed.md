@@ -13,8 +13,8 @@ Weed should have the following fields:
 - `growth_chance`: chance the weed has of growing on a random tick.
 - `aggressive`: if `true`, the weed will try to spread to adjacent crops when mature.
 - `lethal`: if `true`, the weed will try to kill the host plant when mature.
-- `rake_products`: list of possible raking products of the weed. Follows the same structure as [plant products](./plant.mdx#Adding-plant-products).
-- `requirement`: an object containing plant's requirements. Follows the same structure as plants, which is explained [here](./plant.mdx#Creating-a-simple-plant) and [here](./plant.mdx#Adding-additional-requirements).
+- `rake_products`: list of possible raking products of the weed. Follows the same structure as [plant products](./plant.mdx#adding-plant-products).
+- `requirement`: an object containing plant's requirements. Follows the same structure as plants, which is explained [here](./plant.mdx#creating-a-simple-plant) and [here](./plant.mdx#adding-additional-requirements).
 
 
 The example below shows a basic weed:
@@ -66,7 +66,7 @@ The example below shows a basic weed:
 
 ## Resourcepack
 
-The resourcepack part describes how the weed is rendered. It follows the same architecture as the [plant resourcepack part](./plant.mdx#Resourcepack).
+The resourcepack part describes how the weed is rendered. It follows the same architecture as the [plant resourcepack part](./plant.mdx#resourcepack).
 
 The only difference is that the models must be placed in the `weed` folder instead of `crop`.
 

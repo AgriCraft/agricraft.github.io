@@ -25,7 +25,7 @@ data
 
 First, let's create a simple plant. Every plant requires the following fields:
 - `mods`: list of mods required to load this plant. **Currently not used**
-- `seeds`: list of items that can be used as a seed for this plant. Note that AgriCraft will always generate it's own seed for the plant. More information about adding seeds [can be found below](#Adding-seeds).
+- `seeds`: list of items that can be used as a seed for this plant. Note that AgriCraft will always generate it's own seed for the plant. More information about adding seeds [can be found below](#adding-seeds).
 - `stages`: list of growth stages for this plant. Every stage should be a number corresponding to the height of the plant in pixels.
 - `harvest_stage`: growth stage that the plant will have after it gets harvested.
 - `growth_chance`: chance the plant has of growing on a random tick.
@@ -33,7 +33,7 @@ First, let's create a simple plant. Every plant requires the following fields:
 - `cloneable`: determines if the plant can be cloned.
 - `spread_chance`: spread chance of the plant on clone.
 - `requirement`: an object containing plant's requirements:
-	- `soil_humidity`, `soil_acidity` and `soil_nutrients`: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation [is provided below](#Specifying-soil-humidity-acidity-and-nutrients).
+	- `soil_humidity`, `soil_acidity` and `soil_nutrients`: humidity, acidity and nutrients of the soil required for the plant to grow. An in-depth explanation [is provided below](#specifying-soil-humidity-acidity-and-nutrients).
 	- `min_light`: minimum light required for the plant to grow.
 	- `max_light`: maximum light required for the plant to grow.
 	- `light_tolerance_factor`: light tolerance of the plant. For each level of plant strength, `min_light` decreases and `max_light` increases by the given value.

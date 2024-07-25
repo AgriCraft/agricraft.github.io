@@ -9,9 +9,9 @@ Every soil requires the following fields:
 - `variants`: array of blocks representing this soil. Every soil object consists of:
 	-  `block`: tag or a resource location of the block.
 	-  `states`: list of states the block must match. *[optional]*
-- `humidity`: humidity condition of the soil. Accepted values [can be found here](#Humidity).
-- `acidity`: acidity condition of the soil. Accepted values [can be found here](#Acidity).
-- `nutrients`: nutrient condition of the soil. Accepted values [can be found here](#Nutrients).
+- `humidity`: humidity condition of the soil. Accepted values [can be found here](#humidity).
+- `acidity`: acidity condition of the soil. Accepted values [can be found here](#acidity).
+- `nutrients`: nutrient condition of the soil. Accepted values [can be found here](#nutrients).
 - `growth_modifier`: value used to modify the growth of the plants on this soil. The default value is `1.0`. Higher values will increase the growth speed, while lower ones will decrease it.
 
 The example below shows soul soil as a soil:
